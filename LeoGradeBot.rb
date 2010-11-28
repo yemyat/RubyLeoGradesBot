@@ -23,6 +23,7 @@ class LeoGradeBot < Sinatra::Base
         grades.each do |grade|
           result += grade["module"].to_s+" - Problem "+grade["problem"].to_s+" : "+grade["grade"].to_s+"<br/>"
         end
+        result += "To make me restart, just type in anything!<br/>"
         result += "<reset>"
         result
       end
@@ -33,11 +34,11 @@ class LeoGradeBot < Sinatra::Base
     response_grades = []
     hydra = Typhoeus::Hydra.new
     courses_request = Typhoeus::Request.new("http://leo.rp.edu.sg/workspace/studentGrades.asp", 
-                                      :username=>"RP\\"+username, :password=>password,
+                                      :username=>"RP\\"+username.strip, :password=>password.strip,
                                       :auth_method=>:ntlm)
     courses_request.on_complete do |response|
         #get problem and grade
-        modules_list = (response.body).scan(/'_blank'>([A-Z][1-9][1-9][1-9])/)
+        modules_list = (response.body).scan(/'_blank'>([A-Z][0-9][0-9][0-9])-/)
         problems_list = (response.body).scan(/Problem ([1-9]{1,2})/)
         grades_list = (response.body).scan(/'_blank'>([ABCDFX])</)
         for i in (0..problems_list.length)
