@@ -21,7 +21,7 @@ class LeoGradeBot < Sinatra::Base
         result = ""
         grades = getGrades(params['value1'],params['value2'])
         grades.each do |grade|
-          result += grdae["module"].to_s+" - Problem "
+          result += grade["module"].to_s+" - Problem "
           +grade["problem"].to_s+" : "
           +grade["grade"].to_s+"<br/>"
         end
@@ -29,15 +29,6 @@ class LeoGradeBot < Sinatra::Base
         result
       end
     end
-  end
-  
-  get '/:student_id/:password' do
-    result = ""
-    grades = getGrades(params[:student_id],params[:password])
-    grades.each do |grade|
-      result += "Problem "+grade["problem"].to_s+" : "+grade["grade"].to_s+"<br/>"
-    end
-    result
   end
 
   def getGrades(username, password)
