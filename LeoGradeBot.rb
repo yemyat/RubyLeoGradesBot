@@ -40,7 +40,7 @@ class LeoGradeBot < Sinatra::Base
         #get problem and grade
         modules_list = (response.body).scan(/'_blank'>([A-Z][0-9][0-9][0-9])-/)
         problems_list = (response.body).scan(/Problem ([1-9]{1,2})/)
-        grades_list = (response.body).scan(/'_blank'>([ABCDFX])</)
+        grades_list = (response.body).scan(/\}' target='_blank'>([ABCDFX])</)
         for i in (0..problems_list.length)
           unless problems_list[i] == nil
             response_grades[i] = {"module" => modules_list[i],
