@@ -3,8 +3,24 @@ require 'sinatra'
 require 'typhoeus'
 
 class LeoGradeBot < Sinatra::Base
-  get '/' do
-    'Hello from LeoGradeBot'
+  post '/' do
+    if params.nil?
+      "Hello from LEO Grades Retriever bot! 
+      This bot will get the latest grades for all your modules.
+      I do not store your credentials."
+    else
+      case params[:step].to_i
+      when 1
+        "What is your Student ID? (e.g. 44000)"
+      when 2
+        "What is your password?"
+      when 3
+        result = ""
+        grades = getGrades(params['value1'],params['value2'])
+        grades.each do |grade|
+          result += "Problem "+grade["problem"].to_s+" : "+grade["grade"].to_s+"\n"
+        end
+        result
   end
   
   get '/:student_id/:password' do
