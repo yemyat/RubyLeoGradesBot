@@ -12,8 +12,8 @@ class LeoGradeBot < Sinatra::Base
       case params[:step].to_i
       when 1
         "I will get the latest grades for all your modules.
-        Please note that I <b>do not store</b> your credentials.
-        <br/><br/>
+        Please note that I do not store your credentials.
+        <br/>
         What is your Student ID? (e.g. 44000)"
       when 2
         "What is your password?"
@@ -21,8 +21,11 @@ class LeoGradeBot < Sinatra::Base
         result = ""
         grades = getGrades(params['value1'],params['value2'])
         grades.each do |grade|
-          result += "<b>Problem "+grade["problem"].to_s+"</b> : "+grade["grade"].to_s+"<br/>"
+          result += grdae["module"].to_s+" - Problem "
+          +grade["problem"].to_s+" : "
+          +grade["grade"].to_s+"<br/>"
         end
+        result += "<reset>"
         result
       end
     end
@@ -45,11 +48,14 @@ class LeoGradeBot < Sinatra::Base
                                       :auth_method=>:ntlm)
     courses_request.on_complete do |response|
         #get problem and grade
+        modules_list = (response.body).scan(/'_blank'>([A-Z][1-9][1-9][1-9])/)
         problems_list = (response.body).scan(/Problem ([1-9]{1,2})/)
         grades_list = (response.body).scan(/'_blank'>([ABCDFX])</)
         for i in (0..problems_list.length)
           unless problems_list[i] == nil
-            response_grades[i] = {"problem" => problems_list[i], "grade" => grades_list[i]}
+            response_grades[i] = {"module" => modules_list[i],
+                                  "problem" => problems_list[i],
+                                  "grade" => grades_list[i]}
           end
         end
         return response_grades
