@@ -21,9 +21,7 @@ class LeoGradeBot < Sinatra::Base
         result = ""
         grades = getGrades(params['value1'],params['value2'])
         grades.each do |grade|
-          result += grade["module"].to_s+" - Problem "
-          +grade["problem"].to_s+" : "
-          +grade["grade"].to_s+"<br/>"
+          result += grade["module"].to_s+" - Problem "+grade["problem"].to_s+" : "+grade["grade"].to_s+"<br/>"
         end
         result += "<reset>"
         result
