@@ -21,6 +21,8 @@ class LeoGradeBot < Sinatra::Base
           result += "Problem "+grade["problem"].to_s+" : "+grade["grade"].to_s+"\n"
         end
         result
+      end
+    end
   end
   
   get '/:student_id/:password' do
