@@ -12,8 +12,8 @@ class LeoGradeBot < Sinatra::Base
       case params[:step].to_i
       when 1
         "I will get the latest grades for all your modules.
-        Please note that I do not store your credentials.
-        <br/>
+        Please note that I do not store your credentials. You can verify it from my source at http://tinyurl.com/leogradebot.
+        <br/><br/>
         What is your Student ID? (e.g. 44000)"
       when 2
         "What is your password?"
