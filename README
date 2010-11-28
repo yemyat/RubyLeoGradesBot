@@ -1,0 +1,5 @@
+This bot is created using Sinatra framework (http://www.sinatrarb.com/) and Typhoeus ruby gem (https://github.com/pauldix/typhoeus).
+
+Do take note that neither this bot nor I store your credentials (student id and password).
+
+Please feel free to fork and extend this bot.
