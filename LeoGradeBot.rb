@@ -11,7 +11,10 @@ class LeoGradeBot < Sinatra::Base
     else
       case params[:step].to_i
       when 1
-        "What is your Student ID? (e.g. 44000)"
+        "I will get the latest grades for all your modules.
+        Please note that I <b>do not store</b> your credentials.
+        <br/><br/>
+        What is your Student ID? (e.g. 44000)"
       when 2
         "What is your password?"
       when 3
